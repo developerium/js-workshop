@@ -1,0 +1,46 @@
+
+function FizBuzzFunc (num)
+{
+    return function (k) {
+        for (let i=1;i<=num;i++)
+        {
+            if (i%k == 0)
+            {
+                console.log('fiz');
+            }
+            else
+            {
+                console.log(i);
+            }
+        }
+    }
+}
+const fizBuz = FizBuzzFunc(20);
+console.log('fizzbuzz function with number 20 :');
+console.log( fizBuz(3) + '\n');
+
+function findMaxMin(arrayList) {
+     let i;
+     let max = -Infinity;
+     let min = Infinity;
+     for (i = 0; i < arrayList.length; i++) {
+         if (arrayList[i] > max) {
+             max = arrayList[i];
+         }
+         if (arrayList[i] < min) {
+              min = arrayList[i];
+         }
+     }
+
+     return `max = ${max}   min = ${min}`;
+};
+
+ console.log('MinMax without math functions ==> ' + findMaxMin([1, 400, 600, 115, 44, 88]));
+
+  function findMaxMinWithMathFunctions(arrayList) {
+      let max = Math.max.apply(null,arrayList);
+      let min = Math.min.apply(null,arrayList);
+      return `max = ${max}   min = ${min}`;
+  }
+ console.log('MinMax with math functions ==> ' + findMaxMinWithMathFunctions([1, 400, 500, 115, 44, 600]))
+ console.log()

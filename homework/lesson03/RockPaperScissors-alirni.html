@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Ali</title>
+
+  <style>
+    .start {
+      border: 1px solid #121234;
+      background-color: #121234;
+      color: #ffffff;
+      border-radius: 5px;
+      padding: 10px 15px;
+      width: 50px;
+      cursor: pointer;
+    }
+
+    #palyerNumber {
+      padding: 5px;
+      margin: 5px;
+      border-radius: 5px;
+    }
+
+    #error {
+      color: red;
+    }
+
+    .gameArea {
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="gameStart">
+      ** Enter a number between 1 and 3 and click the start button **
+      <br />
+      1 = Rock
+      <br />
+      2 = Paper
+      <br />
+      3 = Scissors
+      <br />
+      <input type="number" name="palyerNumber" id="palyerNumber" min="1" max="3" onkeyup="validNumber()"/>
+    </div>
+    <br />
+    <div id="error"></div>
+    <br/>
+    <div class="playGame">
+      <div class="start" onclick="start()">START</div>
+    </div>
+    <br />
+    <br />
+    <div class="gameArea">
+      computer : <span id="computer"></span>
+      <br />
+      player : <span id="player"></span>
+    </div>
+
+    <br />
+    <br />
+    <div class="gameScore">
+      Score
+      <br />
+      computer : <span id="computerScore"></span>
+      <br />
+      player : <span id="playerScore"></span>
+    </div>
+  </div>
+</body>
+
+<script>
+  let computerScore = 0, playerScore = 0;
+  const start = () => {
+    
+    let palyerNumber = parseInt(document.getElementById('palyerNumber').value);
+    if (validNumber()) {  
+      console.log('start game');
+      const computerNumber = Math.floor(Math.random() * (3 - 1 + 1) + 1);
+
+      console.log('palyerNumber , computerNumber', palyerNumber, computerNumber);
+
+      const computerRockPaperScissors = checkRockPaperScissors(computerNumber);
+      const palyerRockPaperScissors = checkRockPaperScissors(palyerNumber);
+
+      console.log('computerRockPaperScissors', computerRockPaperScissors);
+      console.log('palyerRockPaperScissors', palyerRockPaperScissors);
+      
+      const computer = document.getElementById('computer');
+      const player = document.getElementById('player');
+      computer.innerText = computerRockPaperScissors;
+      player.innerText = palyerRockPaperScissors;
+
+      gameScore(computerNumber, palyerNumber);
+    }
+  }
+
+  const gameScore = (computerNumber, palyerNumber) => {
+    if ((computerNumber === 1 && palyerNumber === 3) || (computerNumber === 2 && palyerNumber === 1) || (computerNumber === 3 && palyerNumber === 2)) {
+      computerScore++;
+    }
+    else if ((computerNumber === 1 && palyerNumber === 2) || (computerNumber === 2 && palyerNumber === 3) || (computerNumber === 3 && palyerNumber === 1)) {
+      playerScore++;
+    }
+    else {
+      return;
+    }
+
+    document.getElementById('computerScore').innerText = computerScore;
+    document.getElementById('playerScore').innerText = playerScore;
+  }
+
+  const validNumber = () => {
+    let palyerNumber = document.getElementById('palyerNumber').value;
+    const error = document.getElementById('error');
+
+    if (palyerNumber === '') {
+      error.innerText = '';
+      return false;
+    }
+    if (palyerNumber > 3 || palyerNumber < 1) {
+      palyerNumber = '';
+      error.innerText = 'The number entered is incorrect';
+      return false;
+    }
+    
+    return true;
+  }
+
+  const checkRockPaperScissors = (num) => {
+    switch (num) {
+      case 1:
+        return 'rock';
+      case 2:
+        return 'paper';
+      case 3:
+        return 'scissors';
+      default:
+        return '';
+    }
+  }
+</script>
+</html>

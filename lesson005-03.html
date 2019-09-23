@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<textarea id="text-container"></textarea>
+
+<button id="button-count-word">count words</button>
+
+<button id="button-count-sentence">count sentences</button>
+
+<div id="result"></div>
+
+<script src="lesson005-04.js"></script>
+
+<script>
+const resultContainer =
+    document.querySelector('#result');
+const textContainer =
+    document.querySelector('#text-container');
+const buttonCountWord =
+    document.querySelector('#button-count-word');
+
+buttonCountWord.addEventListener('click', () => {
+    const text = textContainer.value;
+
+    const analyze = new ParagraphAnalyze(text);
+    const result = analyze.countWords();
+
+    resultContainer.innerText = 'word count is : ' + result;
+});
+</script>
+</body>
+</html>
